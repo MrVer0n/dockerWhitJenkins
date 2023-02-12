@@ -1,12 +1,11 @@
 pipeline {
-    agent none
+    agent {
+        docker { image 'mrver0n/dockerwhitjenkins' }
+    }
     stages {
-        stage('Front-end') {
-            agent {
-                docker { image 'mrver0n/dockerwhitjenkins:tagname' }
-            }
+        stage('Test') {
             steps {
-                sh 'node --version'
+                sh 'docker run -p 49160:8080 -d mrver0n/dockerwhitjenkins'
             }
         }
     }
