@@ -5,7 +5,7 @@ node {
     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 
         def customImage = docker.build("mrver0n/dockerwhitjenkins")
-        docker.image('mrver0n/dockerwhitjenkins').withRun() {}
+        customImage.withRun() {}
         /* Push the container to the custom Registry */
         //customImage.push()
     }
