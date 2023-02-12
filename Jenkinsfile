@@ -11,13 +11,10 @@ node {
 }
 
 pipeline {
-    agent {
-        docker { image 'mrver0n/dockerwhitjenkins' }
-    }
     stages {
         stage('Test') {
             steps {
-                sh 'docker image ls'
+                sh 'docker run -p 49160:8080 -d mrver0n/dockerwhitjenkins'
             }
         }
     }
