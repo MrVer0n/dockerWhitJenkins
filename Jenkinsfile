@@ -1,23 +1,29 @@
-pipeline {
-    agent {
-        docker { image 'mrver0n/dockerwhitjenkins' }
+stage("Prepare container") {
+  agent {
+    docker {
+      image 'openjdk:11.0.5-slim'
+      args '-v $HOME/.m2:/root/.m2'
     }
-    stages {
-        stage('Test') {
-            steps {
-                sh 'node --version'
-            }
-        }
+  }
+  stages {
+    stage('Build') {
+      steps {
+        checkout scm
+        sh './mvnw compile'
+      }
     }
-}
-// Script //
-node {
-    /* Requires the Docker Pipeline plugin to be installed */
-    docker.image('mrver0n/dockerwhitjenkins').inside {
-        stage('Test') {
-            sh 'node --version'
-        }
+    stage('Test') {
+      steps {
+        sh './mvnw test'
+        junit '**/target/surefire-reports/TEST-*.xml'
+      }
     }
+    stage('Package') {
+      steps {
+        sh './mvnw package -DskipTests'
+      }
+    }
+  }
 }
 /*node {
 
