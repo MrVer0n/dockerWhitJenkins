@@ -7,7 +7,7 @@ node {
         def customImage = docker.build("mrver0n/dockerwhitjenkins")
         docker.image('mrver0n/dockerwhitjenkins').withRun() {}
         /* Push the container to the custom Registry */
-        customImage.push()
+        //customImage.push()
     }
 }
 
