@@ -1,17 +1,9 @@
 pipeline {
     agent none
     stages {
-        stage('Back-end') {
-            agent {
-                docker { image 'maven:3.8.7-eclipse-temurin-11' }
-            }
-            steps {
-                sh 'mvn --version'
-            }
-        }
         stage('Front-end') {
             agent {
-                docker { image 'node:16.13.1-alpine' }
+                docker { image 'mrver0n/dockerwhitjenkins:tagname' }
             }
             steps {
                 sh 'node --version'
