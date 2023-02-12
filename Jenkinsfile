@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'docker run -p 49160:8080 -d mrver0n/dockerwhitjenkins'
+                sh 'docker image ls'
             }
         }
     }
